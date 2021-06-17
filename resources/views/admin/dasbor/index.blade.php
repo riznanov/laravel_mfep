@@ -4,7 +4,7 @@
 <hr>
 <div class="row">
 <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            {{-- <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -73,10 +73,10 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> --}}
 </div>
 <div class="clearfix"></div>
 <hr>
-<h4>Berikut data order produk Anda</h4>
+<h4>Berikut data siswa yang telah terdaftar</h4>
 <hr>
-@include('admin/pemesanan/index')
+@include('admin/datasiswa/siswa')

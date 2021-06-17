@@ -101,6 +101,9 @@ function()
     Route::get('admin/dasbor', 'Dasbor@index');
     Route::get('admin/dasbor/konfigurasi', 'Dasbor@konfigurasi');
     // data siswa
+    Route::get('admin/datasiswa', 'Datasiswa@index');
+    Route::get('admin/datasiswa/siswa', 'Datasiswa@datasiswa');
+
     // kelas berprestasi
     Route::get('admin/mfep', 'Mfep@index');
     Route::get('admin/mfep/seleksi', 'Mfep@seleksi');

@@ -59,8 +59,8 @@ $site                 = DB::table('konfigurasi')->first();
       <div class="sidebar-heading">Data</div>
       <hr class="sidebar-divider">
       <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/pemesanan') }}">
-          <i class="fas fa-fw fa-money-bill-alt"></i> <span>Data Siswa</span></a>
+        <a class="nav-link" href="{{ asset('admin/datasiswa/siswa') }}">
+          <i class="fas fa-fw fa-book"></i> <span>Data Siswa</span></a>
       </li>
       <!-- PRODUK -->
       <hr class="sidebar-divider">
@@ -68,21 +68,13 @@ $site                 = DB::table('konfigurasi')->first();
       <hr class="sidebar-divider">
       <li class="nav-item">
         <a class="nav-link" href="{{ asset('admin/mfep/seleksi') }}">
-          <i class="fas fa-fw fa-book"></i> <span>Seleksi Kelas Berprestasi</span></a>
+          <i class="fa fa-search"></i> <span>Seleksi Kelas Berprestasi</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ asset('admin/mfep/pembagian_kelas') }}">
           <i class="fas fa-fw fa-book"></i> <span>Pembagian Kelas Berprestasi</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/produk/tambah') }}">
-          <i class="fas fa-fw fa-plus"></i> <span>Tambah Produk</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ asset('admin/kategori_produk') }}">
-          <i class="fas fa-fw fa-tags"></i> <span>Kategori Produk</span></a>
-      </li>
-
+     
       <!-- Divider -->
       <hr class="sidebar-divider">
       <div class="sidebar-heading">Konten Website</div>
