@@ -86,6 +86,8 @@ function()
     Route::post('siswa/datasiswa/upload_proses', 'Datasiswa@upload_proses');
     Route::post('siswa/datasiswa/edit_proses', 'Datasiswa@edit_proses');
     Route::post('siswa/datasiswa/proses', 'Datasiswa@proses');
+    Route::get('siswa/pengumuman', 'Pengumuman@index');
+
 
 });
 

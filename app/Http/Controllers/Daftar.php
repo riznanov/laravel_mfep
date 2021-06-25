@@ -30,7 +30,7 @@ class Daftar extends Controller
             'password'      => sha1($request->password),
             'akses_level'   => "siswa",
         ]);
-        return redirect('login')->with(['sukses' => 'Anda Berhasil Registrasi. silahkan login']);
+        return redirect('login/loginsiswa')->with(['sukses' => 'Anda Berhasil Registrasi. silahkan login']);
     }
 
     public function login(){

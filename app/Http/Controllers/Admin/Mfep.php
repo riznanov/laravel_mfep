@@ -55,94 +55,107 @@ class Mfep extends Controller
                     ->select('datasiswa.*', 'nilai_siswa.*','mfep.*', $query_kelas)
                     ->where('datasiswa.tahun_ajaran',$tahun_ajaran)
                     // ->whereNull('datasiswa.id_kelas')
-                    ->orderBy('datasiswa.id_siswa','DESC')
+                    ->orderBy('mfep.total_nilai','DESC')
                     ->paginate(20);
-
-
         foreach($data_siswa as $datasiswa) {
-            // bobot tiap kriteria
-            $bobot_pgmkec= 0.2;
-            $bobot_pgmkab= 0.3;
-            $bobot_pgmprov= 0.5;
-
-            $bobot_bind = 0.15;
-            $bobot_mtk = 0.35;
-            $bobot_bing = 0.35;
-            $bobot_ipa = 0.15;
-
-            $bobot_rapot4 =0.2;
-            $bobot_rapot5 =0.3;
-            $bobot_rapot6 =0.5;
-
-            // total nilai kriteria
-            $nilai_pgmkec = $datasiswa->pgm_kec * $bobot_pgmkec;
-            $nilai_pgmkab = $datasiswa->pgm_kab * $bobot_pgmkab;
-            $nilai_pgmprov = $datasiswa->pgm_prov * $bobot_pgmprov;
-            $total_kriteria_piagam = $nilai_pgmkec + $nilai_pgmkab + $nilai_pgmprov;
-
-            $nilai_bind = $datasiswa->ujian_bind * $bobot_bind;
-            $nilai_mtk = $datasiswa->ujian_mtk * $bobot_mtk;
-            $nilai_bing = $datasiswa->ujian_bing * $bobot_bing;
-            $nilai_ipa = $datasiswa->ujian_ipa * $bobot_ipa;
-            $total_kriteria_ujian = $nilai_bind + $nilai_mtk + $nilai_bing + $nilai_ipa;
-
-            $nilai_rapot4 = (($datasiswa->rapot4a+$datasiswa->rapot4b)/2)*$bobot_rapot4;
-            $nilai_rapot5 = (($datasiswa->rapot5a+$datasiswa->rapot5b)/2)*$bobot_rapot5;
-            $nilai_rapot6 = (($datasiswa->rapot6a+$datasiswa->rapot6b)/2)*$bobot_rapot6;
-            $total_kriteria_rapot = $nilai_rapot4 + $nilai_rapot5 + $nilai_rapot6;
-
-            // bobot nilai kriteria
-            $bobot_nilai_piagam = 0.2;
-            $bobot_nilai_ujian = 0.4;
-            $bobot_nilai_rapot = 0.4;
-
-            // bobot * nilai kriteria
-            $nilai_sub_piagam = $total_kriteria_piagam * $bobot_nilai_piagam;
-            $nilai_sub_ujian = $total_kriteria_ujian * $bobot_nilai_ujian;
-            $nilai_sub_rapot = $total_kriteria_rapot * $bobot_nilai_rapot;
-
-            // total nilai kriteria
-            $total_nilai_kriteria = $nilai_sub_piagam + $nilai_sub_ujian + $nilai_sub_rapot;
-
-            DB::table('mfep')->where('id_siswa',$datasiswa->id_siswa)->update([
-                'nilai_piagam' => $total_kriteria_piagam,
-                'nilai_ujian' => $total_kriteria_ujian,
-                'nilai_rapot' => $total_kriteria_rapot,
-                'nilai_sub_piagam' => $nilai_sub_piagam,
-                'nilai_sub_ujian' => $nilai_sub_ujian,
-                'nilai_sub_rapot' => $nilai_sub_rapot,
-                'total_nilai' => $total_nilai_kriteria
-            ]);
-
-            if($datasiswa->kelas == 'Ya'){
-                DB::table('datasiswa')->where('id_siswa', $datasiswa->id_siswa)->update([
-                    'id_kelas' => '1'
-                ]);
-                DB::table('mfep')->where('id_siswa', $datasiswa->id_siswa)->update([
-                    'id_kelas' => '1'
-                ]);
+            if($datasiswa->id_kelas !== null){
+                return redirect('admin/mfep/seleksi')->with(['warning' => 'Data Siswa Tidak ADA']);
             } else{
-                DB::table('datasiswa')->where('id_siswa', $datasiswa->id_siswa)->update([
-                    'id_kelas' => '2'
+                // bobot tiap kriteria
+                $bobot_pgmkec= 0.2;
+                $bobot_pgmkab= 0.3;
+                $bobot_pgmprov= 0.5;
+
+                $bobot_bind = 0.15;
+                $bobot_mtk = 0.35;
+                $bobot_bing = 0.35;
+                $bobot_ipa = 0.15;
+
+                $bobot_rapot4 =0.2;
+                $bobot_rapot5 =0.3;
+                $bobot_rapot6 =0.5;
+
+                // total nilai kriteria
+                $nilai_pgmkec = $datasiswa->pgm_kec * $bobot_pgmkec;
+                $nilai_pgmkab = $datasiswa->pgm_kab * $bobot_pgmkab;
+                $nilai_pgmprov = $datasiswa->pgm_prov * $bobot_pgmprov;
+                $total_kriteria_piagam = $nilai_pgmkec + $nilai_pgmkab + $nilai_pgmprov;
+
+                $nilai_bind = $datasiswa->ujian_bind * $bobot_bind;
+                $nilai_mtk = $datasiswa->ujian_mtk * $bobot_mtk;
+                $nilai_bing = $datasiswa->ujian_bing * $bobot_bing;
+                $nilai_ipa = $datasiswa->ujian_ipa * $bobot_ipa;
+                $total_kriteria_ujian = $nilai_bind + $nilai_mtk + $nilai_bing + $nilai_ipa;
+
+                $nilai_rapot4 = (($datasiswa->rapot4a+$datasiswa->rapot4b)/2)*$bobot_rapot4;
+                $nilai_rapot5 = (($datasiswa->rapot5a+$datasiswa->rapot5b)/2)*$bobot_rapot5;
+                $nilai_rapot6 = (($datasiswa->rapot6a+$datasiswa->rapot6b)/2)*$bobot_rapot6;
+                $total_kriteria_rapot = $nilai_rapot4 + $nilai_rapot5 + $nilai_rapot6;
+
+                // bobot nilai kriteria
+                $bobot_nilai_piagam = 0.2;
+                $bobot_nilai_ujian = 0.4;
+                $bobot_nilai_rapot = 0.4;
+
+                // bobot * nilai kriteria
+                $nilai_sub_piagam = $total_kriteria_piagam * $bobot_nilai_piagam;
+                $nilai_sub_ujian = $total_kriteria_ujian * $bobot_nilai_ujian;
+                $nilai_sub_rapot = $total_kriteria_rapot * $bobot_nilai_rapot;
+
+                // total nilai kriteria
+                $total_nilai_kriteria = $nilai_sub_piagam + $nilai_sub_ujian + $nilai_sub_rapot;
+
+                DB::table('mfep')->where('id_siswa',$datasiswa->id_siswa)->update([
+                    'nilai_piagam' => $total_kriteria_piagam,
+                    'nilai_ujian' => $total_kriteria_ujian,
+                    'nilai_rapot' => $total_kriteria_rapot,
+                    'nilai_sub_piagam' => $nilai_sub_piagam,
+                    'nilai_sub_ujian' => $nilai_sub_ujian,
+                    'nilai_sub_rapot' => $nilai_sub_rapot,
+                    'total_nilai' => $total_nilai_kriteria
                 ]);
-                DB::table('mfep')->where('id_siswa', $datasiswa->id_siswa)->update([
-                    'id_kelas' => '1'
-                ]);
-            }
+
+                if($datasiswa->kelas == 'Ya'){
+                    DB::table('datasiswa')->where('id_siswa', $datasiswa->id_siswa)->update([
+                        'id_kelas' => '1'
+                    ]);
+                    DB::table('mfep')->where('id_siswa', $datasiswa->id_siswa)->update([
+                        'id_kelas' => '1'
+                    ]);
+                } else{
+                    $kelas7b = DB::select('select count(id_kelas) as jumlah_kelas from datasiswa where id_kelas = 2', [1]);
+
+                    foreach($kelas7b as $kelas){
+                        if($kelas->jumlah_kelas > 20){
+                            DB::table('datasiswa')->where('id_siswa', $datasiswa->id_siswa)->update([
+                                'id_kelas' => '3']);
+                            DB::table('mfep')->where('id_siswa', $datasiswa->id_siswa)->update([
+                                'id_kelas' => '3']);
+                        } else{
+                            DB::table('datasiswa')->where('id_siswa', $datasiswa->id_siswa)->update([
+                                'id_kelas' => '2']);
+                            DB::table('mfep')->where('id_siswa', $datasiswa->id_siswa)->update([
+                                'id_kelas' => '2']);
+                        }
+                    }
+                }
+                $data = array('total_kriteria_piagam' => $total_kriteria_piagam,
+                            'total_kriteria_ujian' =>$total_kriteria_ujian,
+                            'total_kriteria_rapot' => $total_kriteria_rapot,
+                            'nilai_sub_piagam' => $nilai_sub_piagam,
+                            'nilai_sub_ujian' => $nilai_sub_ujian,
+                            'nilai_sub_rapot' => $nilai_sub_rapot,
+                            'total_nilai' => $total_nilai_kriteria,
+                            'content'			=> 'admin/mfep/index'
+                        );
+            } 
+          
 
 
         }
-        $data = array(  'title'				=> 'Kelas Berprestasi',
+        $data = array_merge($data, array(  'title'				=> 'Kelas Berprestasi',
 						'datasiswa'			=> $data_siswa,
-                        'total_kriteria_piagam' => $total_kriteria_piagam,
-                        'total_kriteria_ujian' =>$total_kriteria_ujian,
-                        'total_kriteria_rapot' => $total_kriteria_rapot,
-                        'nilai_sub_piagam' => $nilai_sub_piagam,
-                        'nilai_sub_ujian' => $nilai_sub_ujian,
-                        'nilai_sub_rapot' => $nilai_sub_rapot,
-                        'total_nilai' => $total_nilai_kriteria,
-                        'content'			=> 'admin/mfep/index'
-        );
+        ));
 
         return view('admin/layout/wrapper',$data);
     }
@@ -153,26 +166,44 @@ class Mfep extends Controller
         if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
         // $mymodel 			= new Mfep_model();
 		// $datasiswa 			= $mymodel->semua();
+        $jumlah_kelas = DB::select('select count(id_kelas) as jumlah_kelas from kelas where id_kelas > 1', [1]);
+
         $query_kelas = DB::raw("if(mfep.total_nilai = (SELECT MAX(total_nilai) FROM mfep), 'Ya', 'Tidak') as kelas");
         $data_siswa = DB::table('datasiswa')
                     ->join('nilai_siswa', 'nilai_siswa.id_siswa', '=', 'datasiswa.id_siswa','LEFT')
                     ->join('mfep', 'mfep.id_siswa', '=', 'nilai_siswa.id_siswa','LEFT')
                     ->select('datasiswa.*', 'nilai_siswa.*','mfep.*', $query_kelas)
                     ->where('datasiswa.id_kelas',1)
-                    // ->whereNull('datasiswa.id_kelas')
-                    ->orderBy('datasiswa.id_siswa','DESC')
+                    ->orderBy('mfep.total_nilai','DESC')
                     ->paginate(20);
-
-        $id_kelas_berprestasi = DB::select('select count(id_kelas) from datasiswa where id_kelas = 2', [1]);
         $kelas_berprestasi = DB::table('datasiswa')
                             ->select(DB::raw('COUNT(id_kelas) as jumlah_kelas'))
                             ->where('id_kelas','=',1)
                             ->get();
-
-        $data = array(  'title'             => 'Pembagian Kelas Berprestasi',
+        $kelas_prestasi = DB::table('datasiswa')
+                        ->join('mfep', 'mfep.id_siswa', '=', 'datasiswa.id_siswa','LEFT')
+                        ->join('kelas', 'kelas.id_kelas', '=', 'datasiswa.id_kelas','LEFT')
+                        ->select('datasiswa.*','mfep.*', 'kelas.nama_kelas')
+                        ->where('datasiswa.id_kelas','=',1)
+                        ->orderBy('datasiswa.id_kelas','ASC')
+                        ->orderBy('mfep.total_nilai','DESC')
+                        ->paginate(20);
+        $kelas_biasa = DB::table('datasiswa')
+                        ->join('mfep', 'mfep.id_siswa', '=', 'datasiswa.id_siswa','LEFT')
+                        ->join('kelas', 'kelas.id_kelas', '=', 'datasiswa.id_kelas','LEFT')
+                        ->select('datasiswa.*','mfep.*', 'kelas.nama_kelas')
+                        ->where('datasiswa.id_kelas','>',1)
+                        ->orderBy('datasiswa.id_kelas','ASC')
+                        ->orderBy('mfep.total_nilai','DESC')
+                        ->paginate(20);
+                        
+        $data = array(  'title'             => 'Pembagian Kelas',
                         'content'           => 'admin/mfep/kelas',
+                        'jumlah_kelas'      => $jumlah_kelas,
                         'datasiswa'         => $data_siswa,
-                        'kelas_berprestasi'             => $kelas_berprestasi
+                        'kelas_berprestasi' => $kelas_berprestasi,
+                        'kelas_prestasi'    => $kelas_prestasi,
+                        'kelas_b'           => $kelas_biasa
                     );
         return view('admin/layout/wrapper',$data);
     }

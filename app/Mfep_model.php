@@ -19,7 +19,7 @@ class Mfep_model extends Model
             ->join('ortu_siswa', 'ortu_siswa.id_siswa', '=', 'datasiswa.id_siswa','LEFT')
             ->select('mfep.*','datasiswa.*', 'ortu_siswa.*','nilai_siswa.*'
                             , 'dok_siswa.ijazah AS ijazah', 'dok_siswa.pgm_kec AS dok_pgm_kec', 'dok_siswa.pgm_kab AS dok_pgm_kab','dok_siswa.pgm_prov AS dok_pgm_prov')
-            // ->whereNull('datasiswa.id_kelas')
+            ->whereNull('datasiswa.id_kelas')
             ->orderBy('datasiswa.id_siswa','DESC')
             ->get();
         return $query;

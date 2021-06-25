@@ -94,7 +94,7 @@ $site                 = DB::table('konfigurasi')->first();
       <div class="sidebar-heading">Pengumunan Seleksi</div>
       <hr class="sidebar-divider">
       <li class="nav-item">
-        <a class="nav-link" href="{{ asset('siswa/pemesanan') }}">
+        <a class="nav-link" href="{{ asset('siswa/pengumuman') }}">
           <i class="fas fa-fw fa-bullhorn"></i> <span>Pengumuman Seleksi Kelas Berprestasi</span></a>
       </li>
 

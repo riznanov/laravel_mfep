@@ -471,7 +471,7 @@ class Datasiswa extends Controller
      // data siswa done
      public function view_datasiswa()
      {
-         if(Session()->get('username')=="") { return redirect('login')->with(['warning' => 'Mohon maaf, Anda belum login']);}
+         if(Session()->get('username')=="") { return redirect('login/loginsiswa')->with(['warning' => 'Mohon maaf, Anda belum login']);}
          $user_id = Session()->get('id_user');
          $datasiswa = DB::table('datasiswa')->where('datasiswa.id_siswa','=', $user_id)
                      ->join('ortu_siswa', 'ortu_siswa.id_siswa', '=', 'datasiswa.id_siswa','LEFT')

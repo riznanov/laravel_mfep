@@ -143,8 +143,6 @@ $site                 = DB::table('konfigurasi')->first();
             <a class="collapse-item" href="{{ asset('admin/konfigurasi/icon') }}"><i class="fa fa-tree"></i> Ganti Icon</a>
             <a class="collapse-item" href="{{ asset('admin/konfigurasi/email') }}"><i class="fa fa-envelope"></i> Setting Email</a>
             <a class="collapse-item" href="{{ asset('admin/konfigurasi/gambar') }}"><i class="fa fa-lock"></i> Ganti Gambar Login</a>
-            <a class="collapse-item" href="{{ asset('admin/rekening') }}"><i class="fa fa-money-check"></i> Rekening Pembayaran</a>
-            <a class="collapse-item" href="{{ asset('admin/konfigurasi/pembayaran') }}"><i class="fa fa-comment-dollar"></i> Panduan Pembayaran</a>
           </div>
         </div>
       </li>
