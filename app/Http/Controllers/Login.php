@@ -8,7 +8,7 @@ class Login extends Controller
     // Homepage
     public function index()
     {
-        $data = array(  'title'     => 'Login - SMP AL HUSAIN MGL');
+        $data = array(  'title'     => 'Login Admin- SMP AL HUSAIN MGL');
         return view('login/index',$data);
     }
 
@@ -19,7 +19,8 @@ class Login extends Controller
         $password   = $request->password;
         $model      = new User_model();
         $user       = $model->login($username,$password);
-        if($user) {
+        $akses_level = $user->akses_level;
+        if($user && $akses_level == 'Admin') {
             $request->session()->put('id_user', $user->id_user);
             $request->session()->put('nama', $user->nama);
             $request->session()->put('username', $user->username);
@@ -60,14 +61,15 @@ class Login extends Controller
         $password   = $request->password;
         $model      = new User_model();
         $user       = $model->login($username,$password);
-        if($user) {
+        $akses_level = $user->akses_level;
+        if($user && $akses_level == 'siswa') {
             $request->session()->put('id_user', $user->id_user);
             $request->session()->put('nama', $user->nama);
             $request->session()->put('username', $user->username);
             $request->session()->put('akses_level', $user->akses_level);
             return redirect('siswa/dasbor')->with(['sukses' => 'Anda berhasil login']);
         }else{
-            return redirect('login')->with(['warning' => 'Mohon maaf, Username atau password salah']);
+            return redirect('login/loginsiswa')->with(['warning' => 'Mohon maaf, Username atau password salah']);
         }
     }
 }

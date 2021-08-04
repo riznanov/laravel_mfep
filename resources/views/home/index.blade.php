@@ -1,4 +1,4 @@
-{{-- <section id="hero" style="color: #fff;">
+<section id="hero" style="color: #fff;">
   <div class="container">
     <div class="row">
         <div class="owl-carousel owl-theme">
@@ -39,7 +39,7 @@
       <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
     </g>
   </svg>
-</section><!-- End Hero --><!-- Start main --> --}}
+</section><!-- End Hero --><!-- Start main -->
 <main id="main">
 
  <!-- ======= About Section ======= -->
@@ -47,8 +47,8 @@
       <div class="container-fluid">
 
         <div class="row">
-          <div class="col-xl-4 col-lg-6 d-flex justify-content-center align-items-stretch" data-aos="fade-right">
-            <img src="{{ asset('public/upload/image/'.$site->icon) }}" alt="{{ $site->namaweb }}" class="img img-fluid img-thumbnail">
+          <div class="col-xl-4 col-lg-5 d-flex justify-content-center align-items-stretch" data-aos="fade-center">
+            <img src="{{ asset('public/upload/image/'.$site->icon) }}" alt="{{ $site->namaweb }}" class="img-fluid img-thumbnail"">
           </div>
 
           <div class="col-xl-8 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" data-aos="fade-left">
@@ -117,24 +117,12 @@
     </div>
     <!-- END -->
     </div>
-  <hr>
+
 </section>
-<section id="apa-itu-nitrico" class="about">
 
-
-    <div class="container">
-      <div class="col-xl-12 col-lg-12 col-md-12 text-center" data-aos="fade-up">
-            <h2>PENGUMUMAN <?php $site->namaweb ?></h2>
-            <p>Penerimaan Siswa Baru Kelas Berprestasi</p>
-            <br><br>
-      </div>
-          <!-- START -->
-
-    <hr>
-  </section>
 <!-- End Apa itu Nitrico? Section -->
 
- {{-- <!-- ======= Contact Section ======= -->
+ <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
 
@@ -186,7 +174,7 @@
         </div>
 
       </div>
-    </section><!-- End Contact Section --> --}}
+    </section><!-- End Contact Section -->
 
 </main>
 <script>

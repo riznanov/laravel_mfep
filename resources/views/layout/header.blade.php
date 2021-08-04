@@ -49,6 +49,7 @@ $nav_profil           = $myproduk->nav_profil();
                 <li><a href="{{ asset('produk') }}">Semua Informasi</a></li>
               </ul>
             </li>
+            <li><a href="{{ asset('login') }}">Login Admin</a></li>
               {{-- <li>
                   <a href="{{ asset('pemesanan') }}" class="orange" title="Form Pemesanan"><div class="belanja"><i class="fa fa-shopping-cart"></i> Order</div></a>
               </li> --}}
