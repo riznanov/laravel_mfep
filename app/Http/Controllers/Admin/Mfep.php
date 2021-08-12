@@ -58,9 +58,9 @@ class Mfep extends Controller
                     ->orderBy('mfep.total_nilai','DESC')
                     ->paginate(20);
         foreach($data_siswa as $datasiswa) {
-            if($datasiswa->id_kelas !== null){
-                return redirect('admin/mfep/seleksi')->with(['warning' => 'Data Siswa Tidak ADA']);
-            } else{
+            // if($datasiswa->id_kelas !== null){
+            //     return redirect('admin/mfep/seleksi')->with(['warning' => 'Data Siswa Tidak ADA']);
+            // } else{
                 // bobot tiap kriteria
                 $bobot_pgmkec= 0.2;
                 $bobot_pgmkab= 0.3;
@@ -148,8 +148,8 @@ class Mfep extends Controller
                             'total_nilai' => $total_nilai_kriteria,
                             'content'			=> 'admin/mfep/index'
                         );
-            } 
-          
+            // }
+
 
 
         }
@@ -196,7 +196,7 @@ class Mfep extends Controller
                         ->orderBy('datasiswa.id_kelas','ASC')
                         ->orderBy('mfep.total_nilai','DESC')
                         ->paginate(20);
-                        
+
         $data = array(  'title'             => 'Pembagian Kelas',
                         'content'           => 'admin/mfep/kelas',
                         'jumlah_kelas'      => $jumlah_kelas,
